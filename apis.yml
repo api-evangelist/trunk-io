@@ -1,0 +1,137 @@
+aid: trunk-io
+url: https://raw.githubusercontent.com/api-evangelist/trunk-io/refs/heads/main/apis.yml
+name: Trunk
+kind: company
+description: Trunk builds developer experience and CI reliability tooling. Its platform
+  spans Code Quality (a meta-linter and static analysis manager driven by the trunk
+  CLI), a flake-aware parallel Merge Queue, and Flaky Tests detection/CI Analytics.
+  Test results are uploaded from CI via the Trunk Analytics CLI/GitHub Action, and
+  an HTTP REST API at api.trunk.io exposes Flaky Tests and Merge Queue control plus
+  Svix-powered webhooks.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Developer Tools
+- CI/CD
+- Code Quality
+- Flaky Tests
+- Merge Queue
+created: '2026-06-20'
+modified: '2026-06-20'
+specificationVersion: '0.19'
+apis:
+- aid: trunk-io:flaky-tests-api
+  name: Trunk Flaky Tests API
+  tags:
+  - Flaky Tests
+  - Test Analytics
+  - Quarantine
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.trunk.io/flaky-tests/reference/api-reference
+  baseURL: https://api.trunk.io/v1
+  properties:
+  - url: https://docs.trunk.io/flaky-tests/flaky-tests
+    type: Documentation
+  - url: https://docs.trunk.io/flaky-tests/reference/api-reference
+    type: APIReference
+  - url: openapi/trunk-io-openapi.yml
+    type: OpenAPI
+  - url: collections/trunk-io.postman_collection.json
+    type: Postman
+  description: REST API for querying Flaky Tests state - fetch test-case details, list
+    quarantined tests, list unhealthy (FLAKY/BROKEN) tests, list tests that failed
+    in a time range, and link external Jira/Linear tickets to a test case. Authenticated
+    with the x-api-token header.
+- aid: trunk-io:test-uploads-api
+  name: Trunk Test Uploads (Analytics CLI)
+  tags:
+  - Test Uploads
+  - CI Integration
+  - JUnit
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.trunk.io/flaky-tests/uploader
+  baseURL: https://api.trunk.io
+  properties:
+  - url: https://docs.trunk.io/flaky-tests/uploader
+    type: Documentation
+  - url: https://docs.trunk.io/flaky-tests/get-started/ci-providers/github-actions
+    type: Documentation
+  description: CI test-result ingestion surface. The trunk-analytics-cli (and the
+    trunk-io/analytics-uploader GitHub Action) uploads JUnit XML, Bazel BEP, and
+    XCResult test reports to Trunk for flaky-test detection, authenticated with an
+    organization slug (--org-url-slug) and API token (--token / TRUNK_API_TOKEN).
+- aid: trunk-io:merge-queue-api
+  name: Trunk Merge Queue API
+  tags:
+  - Merge Queue
+  - Pull Requests
+  - CI/CD
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.trunk.io/merge-queue/reference/merge
+  baseURL: https://api.trunk.io/v1
+  properties:
+  - url: https://docs.trunk.io/merge-queue
+    type: Documentation
+  - url: https://docs.trunk.io/merge-queue/reference/merge
+    type: APIReference
+  - url: openapi/trunk-io-openapi.yml
+    type: OpenAPI
+  - url: collections/trunk-io.postman_collection.json
+    type: Postman
+  description: REST API to control the flake-aware parallel Merge Queue - submit,
+    cancel, restart, and inspect pull requests; set impacted targets; create, get,
+    update, and delete queues; and read merge-queue testing details and Prometheus
+    metrics. Authenticated with the x-api-token header.
+- aid: trunk-io:webhooks-api
+  name: Trunk Webhooks
+  tags:
+  - Webhooks
+  - Events
+  - Svix
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.trunk.io/flaky-tests/webhooks
+  baseURL: https://api.trunk.io
+  properties:
+  - url: https://docs.trunk.io/flaky-tests/webhooks
+    type: Documentation
+  description: Svix-powered outbound webhooks for subscribing to Flaky Tests events
+    (test_case.status_changed, test_case.monitor_status_changed, test_case.investigation_completed)
+    and Merge Queue events (pull_request.* and pull_request_batch.* such as merged,
+    queued, testing, failed, canceled). Used to trigger downstream workflows like
+    GitHub Issues creation.
+- aid: trunk-io:code-quality-cli
+  name: Trunk Code Quality CLI
+  tags:
+  - Code Quality
+  - Meta-Linter
+  - Static Analysis
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.trunk.io/code-quality
+  baseURL: https://docs.trunk.io/code-quality
+  properties:
+  - url: https://docs.trunk.io/code-quality
+    type: Documentation
+  - url: https://docs.trunk.io/cli
+    type: Documentation
+  description: Meta-linter and static analysis manager exposed through the trunk
+    CLI and a local daemon (no public REST API). Commands include trunk init,
+    trunk check, and trunk check --all; it hermetically installs and runs third-party
+    linters, formatters, and security scanners, operating in Hold The Line mode by
+    default and serving real-time annotations to IDE extensions.
+common:
+- type: GitHubOrganization
+  url: https://github.com/trunk-io
+- type: LinkedIn
+  url: https://www.linkedin.com/company/trunkhq
+- type: Website
+  url: https://trunk.io/
+- type: Documentation
+  url: https://docs.trunk.io
+- type: Plans
+  url: plans/trunk-io-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/trunk-io-rate-limits.yml
+- type: FinOps
+  url: finops/trunk-io-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
